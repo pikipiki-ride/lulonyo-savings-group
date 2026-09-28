@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lulonyo Savings Group - Northern Uganda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-12">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-emerald-850 via-emerald-800 to-teal-900 text-white shadow-md sticky top-0 z-40 border-b border-emerald-700/60" style="background-color: #064e3b;">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-3.5">
+        <!-- Lulonyo Savings Group Logo -->
+        <div class="w-12 h-12 rounded-xl bg-white p-1 shadow-md border border-emerald-400 flex items-center justify-center overflow-hidden">
+          <img src="logo.jpg" alt="Lulonyo Savings Group Logo" class="w-full h-full object-cover rounded-lg">
+        </div>
+        <div>
+          <h1 class="font-extrabold text-xl tracking-tight leading-none text-yellow-300">LULONYO SAVINGS GROUP</h1>
+          <p class="text-xs text-emerald-200 mt-1 font-medium">Community Savings & Micro-Loans • Northern Uganda</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button onclick="openModal('addMemberModal')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>+ Add Member</span>
+        </button>
+        <button onclick="openModal('shareoutModal')" class="bg-yellow-400 hover:bg-yellow-300 text-emerald-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+          <i class="fa-solid fa-calculator"></i>
+          <span>Share-Out Profit</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-6xl mx-auto px-4 pt-6">
+
+    <!-- Vision & Mission Banner -->
+    <div class="bg-gradient-to-r from-emerald-900 to-teal-900 text-white p-5 rounded-2xl shadow-md mb-6 relative overflow-hidden">
+      <div class="absolute right-0 top-0 bottom-0 opacity-10 flex items-center pr-6 pointer-events-none">
+        <i class="fa-solid fa-shield-halved text-9xl text-white"></i>
+      </div>
+      <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="border-b md:border-b-0 md:border-r border-emerald-700/60 pb-4 md:pb-0 md:pr-6">
+          <div class="flex items-center space-x-2 text-yellow-400 mb-1.5">
+            <i class="fa-solid fa-eye text-sm"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">OUR VISION</span>
+          </div>
+          <p class="text-sm font-medium text-emerald-100 leading-relaxed">
+            "To be a leading self-sustaining community financial institution in Northern Uganda that empowers every household with financial independence, climate-resilient livelihoods, and generational prosperity."
+          </p>
+        </div>
+
+        <div>
+          <div class="flex items-center space-x-2 text-yellow-400 mb-1.5">
+            <i class="fa-solid fa-bullseye text-sm"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">OUR MISSION</span>
+          </div>
+          <p class="text-sm font-medium text-emerald-100 leading-relaxed">
+            "To foster inclusive economic growth across Northern Uganda by providing transparent micro-savings, fair credit, and digital tools that uplift smallholder farmers, trade, and rural families."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group Summary Overview Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Group Savings</span>
+          <span class="text-2xl font-extrabold text-emerald-700" id="totalGroupSavings">UGX 1,982,000</span>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-vault"></i>
+        </div>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Active Loans Out</span>
+          <span class="text-2xl font-extrabold text-amber-600" id="totalGroupLoans">UGX 245,000</span>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+        </div>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Group Members</span>
+          <span class="text-2xl font-extrabold text-slate-900" id="totalMemberCount">9 Members</span>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-people-group"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search & Quick Action Toolbar -->
+    <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="relative w-full md:w-80">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+        <input type="text" id="searchInput" oninput="searchMembers()" placeholder="Search member name or village..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium">
+      </div>
+      <div class="flex items-center space-x-2 w-full md:w-auto">
+        <button onclick="openModal('addMemberModal')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>+ Add New Member</span>
+        </button>
+        <button onclick="openModal('saveModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+          <i class="fa-solid fa-piggy-bank"></i>
+          <span>+ Deposit Savings</span>
+        </button>
+        <button onclick="openModal('borrowModal')" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+          <i class="fa-solid fa-hand-holding-heart"></i>
+          <span>+ Borrow Money</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Member Cards List -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="membersGrid">
+      <!-- Dynamic Member Cards Rendered Here -->
+    </div>
+
+  </main>
+
+  <!-- MODAL 0: REGISTER NEW MEMBER -->
+  <div id="addMemberModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-150">
+      <div class="flex justify-between items-center mb-5 border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900">Register New Member</h3>
+        </div>
+        <button onclick="closeModal('addMemberModal')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <form onsubmit="handleAddMember(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name</label>
+          <input type="text" id="newMemberName" placeholder="e.g. Otim Francis" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Phone Number</label>
+          <input type="tel" id="newMemberPhone" placeholder="+256771000000" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Village / Parish</label>
+            <input type="text" id="newMemberVillage" placeholder="e.g. Bardege" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Initial Shares</label>
+            <select id="newMemberInitialShares" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+              <option value="0">0 Shares (UGX 0)</option>
+              <option value="1">1 Share (UGX 2,000)</option>
+              <option value="2">2 Shares (UGX 4,000)</option>
+              <option value="5" selected>5 Shares (UGX 10,000)</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
+          <i class="fa-solid fa-check mr-2"></i> Confirm & Register Member
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 1: DEPOSIT SAVINGS -->
+  <div id="saveModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-150">
+      <div class="flex justify-between items-center mb-5 border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-piggy-bank"></i>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900">Record Savings Deposit</h3>
+        </div>
+        <button onclick="closeModal('saveModal')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <form onsubmit="handleSave(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Select Member</label>
+          <select id="saveMemberSelect" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <!-- Member options -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Number of Shares (UGX 2,000 per share)</label>
+          <select id="saveSharesSelect" onchange="updateSaveTotal()" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <option value="1">1 Share (UGX 2,000)</option>
+            <option value="2">2 Shares (UGX 4,000)</option>
+            <option value="3">3 Shares (UGX 6,000)</option>
+            <option value="4">4 Shares (UGX 8,000)</option>
+            <option value="5" selected>5 Shares (UGX 10,000)</option>
+          </select>
+        </div>
+
+        <div class="bg-emerald-50 p-3.5 rounded-xl border border-emerald-100 flex justify-between items-center text-xs">
+          <span class="text-emerald-800 font-semibold">Total Savings + Welfare (UGX 1,000):</span>
+          <strong class="text-base text-emerald-900 font-extrabold" id="saveTotalDisplay">UGX 11,000</strong>
+        </div>
+
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-emerald-600/30 transition text-sm">
+          <i class="fa-solid fa-check mr-2"></i> Confirm Savings Deposit
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: BORROW LOAN -->
+  <div id="borrowModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
+      <div class="flex justify-between items-center mb-5 border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900">Request Member Loan</h3>
+        </div>
+        <button onclick="closeModal('borrowModal')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <form onsubmit="handleBorrow(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Borrowing Member</label>
+          <select id="borrowMemberSelect" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <!-- Options -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Loan Amount requested (UGX)</label>
+          <input type="number" id="borrowAmount" step="10000" min="20000" max="1000000" value="100000" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Monthly Interest Rate</label>
+          <input type="text" value="5% Flat Rate Monthly" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl p-3 text-xs font-semibold text-slate-500">
+        </div>
+
+        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-amber-600/30 transition text-sm">
+          <i class="fa-solid fa-check mr-2"></i> Approve Loan Request
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: REPAY LOAN -->
+  <div id="repayModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
+      <div class="flex justify-between items-center mb-5 border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900">Record Loan Repayment</h3>
+        </div>
+        <button onclick="closeModal('repayModal')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <form onsubmit="handleRepay(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Repaying Member</label>
+          <input type="text" id="repayMemberName" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl p-3 text-sm font-bold text-slate-800">
+          <input type="hidden" id="repayMemberId">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Repayment Amount (UGX)</label>
+          <input type="number" id="repayAmount" step="5000" min="5000" value="20000" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition text-sm">
+          <i class="fa-solid fa-check mr-2"></i> Record Repayment
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: SHAREOUT WITH PERCENTAGE PROFIT SHARING -->
+  <div id="shareoutModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-100 max-h-[92vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+        <div>
+          <h3 class="font-extrabold text-xl text-slate-900">LULONYO SAVINGS GROUP — Percentage Share-Out Report</h3>
+          <p class="text-xs text-slate-500">Decide profit distribution by Percentage Return (%) or Total Profit Amount (UGX)</p>
+        </div>
+        <button onclick="closeModal('shareoutModal')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+
+      <!-- Mode Selector & Percentage Input Box -->
+      <div class="bg-amber-50/80 p-4 rounded-2xl border border-amber-200 mb-4">
+        <div class="flex justify-between items-center mb-2">
+          <div class="flex items-center space-x-2 text-amber-900 font-bold text-xs uppercase">
+            <i class="fa-solid fa-percent"></i>
+            <span>Agreed Member Profit Return (%)</span>
+          </div>
+          <div class="flex text-xs bg-amber-200/60 p-1 rounded-lg">
+            <button type="button" id="modeBtnPct" onclick="setProfitMode('percent')" class="px-2.5 py-1 rounded-md font-bold bg-amber-600 text-white shadow-sm">By Percentage (%)</button>
+            <button type="button" id="modeBtnUgx" onclick="setProfitMode('amount')" class="px-2.5 py-1 rounded-md font-medium text-amber-900 hover:bg-amber-100">By Amount (UGX)</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
+          <div id="pctInputGroup">
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Profit Return Percentage (%)</label>
+            <div class="relative">
+              <input type="number" id="profitPctInput" step="0.5" min="0" max="100" value="15" oninput="recalculateCustomShareout()" class="w-full bg-white border border-amber-300 rounded-xl p-2.5 pr-8 text-sm font-extrabold text-amber-900 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+              <span class="absolute right-3 top-2.5 font-bold text-amber-800 text-sm">%</span>
+            </div>
+          </div>
+
+          <div id="ugxInputGroup" class="hidden">
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Total Group Profit (UGX)</label>
+            <input type="number" id="customProfitInput" step="5000" min="0" value="173000" oninput="recalculateCustomShareout()" class="w-full bg-white border border-amber-300 rounded-xl p-2.5 text-sm font-extrabold text-amber-900 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          </div>
+
+          <div class="bg-white p-2.5 rounded-xl border border-amber-200">
+            <span class="text-[11px] text-slate-500 block">Total Profit Distributed:</span>
+            <strong class="text-sm text-emerald-800 font-extrabold" id="soTotalProfitDisplay">UGX 100,200</strong>
+          </div>
+
+          <div class="bg-white p-2.5 rounded-xl border border-amber-200">
+            <span class="text-[11px] text-slate-500 block">Profit per Share:</span>
+            <strong class="text-sm text-purple-700 font-extrabold" id="soDiv">UGX 300.00</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 text-slate-700 font-bold">
+              <th class="p-2.5 rounded-l-lg">Member Name</th>
+              <th class="p-2.5">Shares</th>
+              <th class="p-2.5">Group Ownership</th>
+              <th class="p-2.5">Savings Capital</th>
+              <th class="p-2.5">Profit Dividend</th>
+              <th class="p-2.5 text-right rounded-r-lg">Total Payout</th>
+            </tr>
+          </thead>
+          <tbody id="shareoutTableBody" class="divide-y divide-slate-100">
+            <!-- Dynamic shareout rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State Data
+    let membersData = [
+      { id: "M1", name: "Adong David", phone: "+256771807017", village: "Bardege", shares: 44, savings: 88000, loanBal: 0 },
+      { id: "M2", name: "Acan David", phone: "+256777372609", village: "Patiko", shares: 32, savings: 64000, loanBal: 45000 },
+      { id: "M3", name: "Okello Beatrice", phone: "+256772709952", village: "Layibi", shares: 48, savings: 96000, loanBal: 0 },
+      { id: "M4", name: "Akello Nancy", phone: "+256774867504", village: "Patiko", shares: 25, savings: 50000, loanBal: 120000 },
+      { id: "M5", name: "Amony James", phone: "+256771781134", village: "Bobobi", shares: 36, savings: 72000, loanBal: 0 },
+      { id: "M6", name: "Okello Moses", phone: "+256776535908", village: "Unyama", shares: 50, savings: 100000, loanBal: 0 },
+      { id: "M7", name: "Opio Harriet", phone: "+256772189052", village: "Koro", shares: 18, savings: 36000, loanBal: 80000 },
+      { id: "M8", name: "Oloya Beatrice", phone: "+256773118906", village: "Layibi", shares: 42, savings: 84000, loanBal: 0 },
+      { id: "M9", name: "Oyet David", phone: "+256778511440", village: "Laroo", shares: 39, savings: 78000, loanBal: 0 }
+    ];
+
+    let currentProfitMode = 'percent'; // 'percent' or 'amount'
+
+    function setProfitMode(mode) {
+      currentProfitMode = mode;
+      const btnPct = document.getElementById('modeBtnPct');
+      const btnUgx = document.getElementById('modeBtnUgx');
+      const pctGrp = document.getElementById('pctInputGroup');
+      const ugxGrp = document.getElementById('ugxInputGroup');
+
+      if (mode === 'percent') {
+        btnPct.className = "px-2.5 py-1 rounded-md font-bold bg-amber-600 text-white shadow-sm";
+        btnUgx.className = "px-2.5 py-1 rounded-md font-medium text-amber-900 hover:bg-amber-100";
+        pctGrp.classList.remove('hidden');
+        ugxGrp.classList.add('hidden');
+      } else {
+        btnUgx.className = "px-2.5 py-1 rounded-md font-bold bg-amber-600 text-white shadow-sm";
+        btnPct.className = "px-2.5 py-1 rounded-md font-medium text-amber-900 hover:bg-amber-100";
+        ugxGrp.classList.remove('hidden');
+        pctGrp.classList.add('hidden');
+      }
+      recalculateCustomShareout();
+    }
+
+    function renderUI() {
+      // 1. Render Summary Totals
+      const totalSavings = membersData.reduce((sum, m) => sum + m.savings, 0);
+      const totalLoans = membersData.reduce((sum, m) => sum + m.loanBal, 0);
+
+      document.getElementById('totalGroupSavings').innerText = 'UGX ' + totalSavings.toLocaleString();
+      document.getElementById('totalGroupLoans').innerText = 'UGX ' + totalLoans.toLocaleString();
+      document.getElementById('totalMemberCount').innerText = membersData.length + ' Members';
+
+      // 2. Populate Select Dropdowns
+      const saveSelect = document.getElementById('saveMemberSelect');
+      const borrowSelect = document.getElementById('borrowMemberSelect');
+
+      saveSelect.innerHTML = membersData.map(m => `<option value="${m.id}">${m.name} (${m.village})</option>`).join('');
+      borrowSelect.innerHTML = membersData.map(m => `<option value="${m.id}">${m.name} (${m.village})</option>`).join('');
+
+      // 3. Render Cards
+      renderMemberCards(membersData);
+    }
+
+    function renderMemberCards(list) {
+      const grid = document.getElementById('membersGrid');
+      grid.innerHTML = list.map(m => `
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-3 mb-4">
+              <div class="w-12 h-12 rounded-full bg-emerald-700 text-white font-extrabold flex items-center justify-center text-base shadow-sm">
+                ${m.name.split(' ').map(n=>n[0]).join('')}
+              </div>
+              <div>
+                <h3 class="font-bold text-base text-slate-900 leading-snug">${m.name}</h3>
+                <p class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i>${m.village}</p>
+              </div>
+            </div>
+
+            <!-- Balances -->
+            <div class="grid grid-cols-2 gap-2 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs">
+              <div>
+                <span class="text-slate-400 block font-semibold">Total Savings</span>
+                <strong class="text-emerald-800 text-sm font-extrabold">UGX ${m.savings.toLocaleString()}</strong>
+                <span class="text-[10px] text-slate-400 block mt-0.5">(${m.shares} Shares)</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block font-semibold">Active Loan</span>
+                <strong class="${m.loanBal > 0 ? 'text-amber-600 font-extrabold text-sm' : 'text-slate-400 text-xs'}">
+                  ${m.loanBal > 0 ? 'UGX ' + m.loanBal.toLocaleString() : 'No Loan'}
+                </strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-100 text-[11px] font-bold">
+            <button onclick="quickSave('${m.id}')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+              <i class="fa-solid fa-piggy-bank"></i>
+              <span>Save</span>
+            </button>
+            <button onclick="quickBorrow('${m.id}')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+              <i class="fa-solid fa-hand-holding"></i>
+              <span>Borrow</span>
+            </button>
+            <button onclick="openRepayModal('${m.id}')" class="${m.loanBal > 0 ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed'} py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+              <i class="fa-solid fa-receipt"></i>
+              <span>Repay</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function searchMembers() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = membersData.filter(m => m.name.toLowerCase().includes(q) || m.village.toLowerCase().includes(q));
+      renderMemberCards(filtered);
+    }
+
+    function updateSaveTotal() {
+      const shares = parseInt(document.getElementById('saveSharesSelect').value);
+      const total = (shares * 2000) + 1000;
+      document.getElementById('saveTotalDisplay').innerText = 'UGX ' + total.toLocaleString();
+    }
+
+    function handleAddMember(e) {
+      e.preventDefault();
+      const name = document.getElementById('newMemberName').value.trim();
+      const phone = document.getElementById('newMemberPhone').value.trim();
+      const village = document.getElementById('newMemberVillage').value.trim();
+      const initShares = parseInt(document.getElementById('newMemberInitialShares').value);
+
+      const newId = 'M' + (membersData.length + 1);
+      const newMember = {
+        id: newId,
+        name: name,
+        phone: phone,
+        village: village,
+        shares: initShares,
+        savings: initShares * 2000,
+        loanBal: 0
+      };
+
+      membersData.unshift(newMember);
+      renderUI();
+      closeModal('addMemberModal');
+
+      document.getElementById('newMemberName').value = '';
+      document.getElementById('newMemberPhone').value = '';
+      document.getElementById('newMemberVillage').value = '';
+
+      alert(`🎉 Member Registered!\n${name} from ${village} has been added to Lulonyo Savings Group.`);
+    }
+
+    function quickSave(id) {
+      document.getElementById('saveMemberSelect').value = id;
+      openModal('saveModal');
+    }
+
+    function quickBorrow(id) {
+      document.getElementById('borrowMemberSelect').value = id;
+      openModal('borrowModal');
+    }
+
+    function openRepayModal(id) {
+      const member = membersData.find(m => m.id === id);
+      if (!member || member.loanBal <= 0) return;
+      document.getElementById('repayMemberId').value = id;
+      document.getElementById('repayMemberName').value = member.name + ' (Owes UGX ' + member.loanBal.toLocaleString() + ')';
+      document.getElementById('repayAmount').value = Math.min(20000, member.loanBal);
+      openModal('repayModal');
+    }
+
+    function handleSave(e) {
+      e.preventDefault();
+      const id = document.getElementById('saveMemberSelect').value;
+      const shares = parseInt(document.getElementById('saveSharesSelect').value);
+      const member = membersData.find(m => m.id === id);
+      if (member) {
+        member.shares += shares;
+        member.savings += (shares * 2000);
+        renderUI();
+        closeModal('saveModal');
+        alert(`✅ Savings Recorded!\n${member.name} bought ${shares} shares (UGX ${(shares * 2000).toLocaleString()}).`);
+      }
+    }
+
+    function handleBorrow(e) {
+      e.preventDefault();
+      const id = document.getElementById('borrowMemberSelect').value;
+      const amount = parseInt(document.getElementById('borrowAmount').value);
+      const member = membersData.find(m => m.id === id);
+      if (member) {
+        member.loanBal += amount;
+        renderUI();
+        closeModal('borrowModal');
+        alert(`🤝 Loan Issued!\nUGX ${amount.toLocaleString()} disbursed to ${member.name}.`);
+      }
+    }
+
+    function handleRepay(e) {
+      e.preventDefault();
+      const id = document.getElementById('repayMemberId').value;
+      const amount = parseInt(document.getElementById('repayAmount').value);
+      const member = membersData.find(m => m.id === id);
+      if (member) {
+        member.loanBal = Math.max(0, member.loanBal - amount);
+        renderUI();
+        closeModal('repayModal');
+        alert(`💳 Repayment Received!\nUGX ${amount.toLocaleString()} received from ${member.name}.`);
+      }
+    }
+
+    function recalculateCustomShareout() {
+      renderShareoutModal();
+    }
+
+    function renderShareoutModal() {
+      const body = document.getElementById('shareoutTableBody');
+      const totalGroupSavings = membersData.reduce((sum, m) => sum + m.savings, 0);
+      const totalGroupShares = membersData.reduce((sum, m) => sum + m.shares, 0);
+
+      let totalProfitDistributable = 0;
+      let divPerShare = 0;
+
+      if (currentProfitMode === 'percent') {
+        const pct = parseFloat(document.getElementById('profitPctInput').value) || 0;
+        totalProfitDistributable = Math.round(totalGroupSavings * (pct / 100));
+        divPerShare = totalGroupShares > 0 ? (totalProfitDistributable / totalGroupShares) : 0;
+      } else {
+        totalProfitDistributable = parseFloat(document.getElementById('customProfitInput').value) || 0;
+        divPerShare = totalGroupShares > 0 ? (totalProfitDistributable / totalGroupShares) : 0;
+      }
+
+      document.getElementById('soTotalProfitDisplay').innerText = 'UGX ' + totalProfitDistributable.toLocaleString();
+      document.getElementById('soDiv').innerText = 'UGX ' + divPerShare.toFixed(2);
+
+      body.innerHTML = membersData.map(m => {
+        const memberOwnershipPct = totalGroupSavings > 0 ? ((m.savings / totalGroupSavings) * 100).toFixed(1) : '0';
+        const profit = Math.round(m.savings * (totalGroupSavings > 0 ? (totalProfitDistributable / totalGroupSavings) : 0));
+        const payout = m.savings + profit;
+
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="p-2.5 font-bold text-slate-900">${m.name}</td>
+            <td class="p-2.5 font-semibold text-emerald-700">${m.shares}</td>
+            <td class="p-2.5 text-slate-500 font-medium">${memberOwnershipPct}%</td>
+            <td class="p-2.5">UGX ${m.savings.toLocaleString()}</td>
+            <td class="p-2.5 text-purple-700 font-semibold">UGX ${profit.toLocaleString()}</td>
+            <td class="p-2.5 text-right font-extrabold text-emerald-900">UGX ${payout.toLocaleString()}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openModal(id) {
+      if (id === 'shareoutModal') renderShareoutModal();
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    // Init
+    renderUI();
+  </script>
+</body>
+</html>
