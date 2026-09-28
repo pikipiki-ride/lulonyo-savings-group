@@ -1,0 +1,17 @@
+{
+  "short_name": "Okello Savings",
+  "name": "Okello Family Savings Group",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#064e3b",
+  "theme_color": "#064e3b",
+  "display": "standalone",
+  "orientation": "portrait"
+}
