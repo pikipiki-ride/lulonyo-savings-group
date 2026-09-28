@@ -66,7 +66,7 @@
             <span class="text-xs font-bold uppercase tracking-wider">OUR MISSION</span>
           </div>
           <p class="text-sm font-medium text-emerald-100 leading-relaxed">
-            "To foster family economic growth by providing transparent micro-savings (minimum UGX 10,000 per deposit), responsible credit strictly within member savings limits, and digital tools for all family members."
+            "To foster family economic growth by providing transparent micro-savings (minimum UGX 10,000, up to any custom amount), responsible credit strictly within member savings limits, and digital tools for all family members."
           </p>
         </div>
       </div>
@@ -79,8 +79,8 @@
           <i class="fa-solid fa-piggy-bank"></i>
         </div>
         <div>
-          <strong class="font-bold">Minimum Savings Deposit:</strong>
-          <span class="text-emerald-800"> Minimum deposit per transaction is strictly <strong>UGX 10,000</strong> (UGX 10,000 per share).</span>
+          <strong class="font-bold">Flexible Deposit Rule:</strong>
+          <span class="text-emerald-800"> Minimum deposit is <strong>UGX 10,000</strong>. Members can deposit <strong>any higher amount</strong> (e.g. UGX 50,000, UGX 100,000, UGX 500,000+).</span>
         </div>
       </div>
 
@@ -187,13 +187,8 @@
             <input type="text" id="newMemberVillage" placeholder="e.g. Bardege" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Initial Deposit (Min UGX 10,000)</label>
-            <select id="newMemberInitialShares" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-              <option value="0">0 Shares (UGX 0)</option>
-              <option value="1" selected>1 Share (UGX 10,000)</option>
-              <option value="2">2 Shares (UGX 20,000)</option>
-              <option value="5">5 Shares (UGX 50,000)</option>
-            </select>
+            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Initial Deposit (UGX)</label>
+            <input type="number" id="newMemberInitialDeposit" step="5000" min="10000" value="10000" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
           </div>
         </div>
 
@@ -204,7 +199,7 @@
     </div>
   </div>
 
-  <!-- MODAL 1: DEPOSIT SAVINGS (MINIMUM UGX 10,000) -->
+  <!-- MODAL 1: DEPOSIT SAVINGS (ANY AMOUNT >= UGX 10,000) -->
   <div id="saveModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-150">
       <div class="flex justify-between items-center mb-5 border-b border-slate-100 pb-3">
@@ -226,19 +221,30 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Deposit Amount (UGX 10,000 per Share)</label>
-          <select id="saveSharesSelect" onchange="updateSaveTotal()" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-            <option value="1" selected>1 Share (UGX 10,000 - Min Deposit)</option>
-            <option value="2">2 Shares (UGX 20,000)</option>
-            <option value="3">3 Shares (UGX 30,000)</option>
-            <option value="4">4 Shares (UGX 40,000)</option>
-            <option value="5">5 Shares (UGX 50,000)</option>
-            <option value="10">10 Shares (UGX 100,000)</option>
-          </select>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Enter Savings Deposit Amount (UGX)</label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-3 text-xs font-bold text-emerald-800">UGX</span>
+            <input type="number" id="saveAmountInput" step="5000" min="10000" value="10000" oninput="updateSaveTotalCustom()" required class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-base font-extrabold text-emerald-900 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+          <p class="text-[11px] text-slate-500 mt-1">*(Minimum deposit: UGX 10,000. You can enter any amount like 50,000, 100,000, 500,000+)*</p>
+        </div>
+
+        <!-- Preset Amount Shortcuts -->
+        <div>
+          <span class="text-[11px] font-bold text-slate-500 uppercase block mb-1">Quick Presets:</span>
+          <div class="grid grid-cols-4 gap-1.5 text-xs font-bold">
+            <button type="button" onclick="setSavePreset(10000)" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 py-1.5 rounded-lg border border-emerald-200">10k</button>
+            <button type="button" onclick="setSavePreset(50000)" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 py-1.5 rounded-lg border border-emerald-200">50k</button>
+            <button type="button" onclick="setSavePreset(100000)" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 py-1.5 rounded-lg border border-emerald-200">100k</button>
+            <button type="button" onclick="setSavePreset(500000)" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 py-1.5 rounded-lg border border-emerald-200">500k</button>
+          </div>
         </div>
 
         <div class="bg-emerald-50 p-3.5 rounded-xl border border-emerald-100 flex justify-between items-center text-xs">
-          <span class="text-emerald-800 font-semibold">Total Savings + Welfare (UGX 1,000):</span>
+          <div>
+            <span class="text-emerald-800 font-semibold block">Total Savings + Welfare (UGX 1,000):</span>
+            <span class="text-[11px] text-emerald-700" id="saveSharesCalc">Equivalent: 1 Share</span>
+          </div>
           <strong class="text-base text-emerald-900 font-extrabold" id="saveTotalDisplay">UGX 11,000</strong>
         </div>
 
@@ -398,7 +404,7 @@
 
   <script>
     const STORAGE_KEY = 'okello_family_members_db';
-    const SHARE_VALUE_UGX = 10000; // MINIMUM DEPOSIT PER SHARE = UGX 10,000
+    const BASE_SHARE_UNIT = 10000;
 
     function loadMembersFromStorage() {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -546,10 +552,17 @@
       renderMemberCards(filtered);
     }
 
-    function updateSaveTotal() {
-      const shares = parseInt(document.getElementById('saveSharesSelect').value);
-      const total = (shares * SHARE_VALUE_UGX) + 1000;
-      document.getElementById('saveTotalDisplay').innerText = 'UGX ' + total.toLocaleString();
+    function updateSaveTotalCustom() {
+      const amt = parseFloat(document.getElementById('saveAmountInput').value) || 0;
+      const shares = Math.floor(amt / BASE_SHARE_UNIT);
+      const totalWithWelfare = amt + 1000;
+      document.getElementById('saveSharesCalc').innerText = `Equivalent: ${shares} Shares`;
+      document.getElementById('saveTotalDisplay').innerText = 'UGX ' + totalWithWelfare.toLocaleString();
+    }
+
+    function setSavePreset(amt) {
+      document.getElementById('saveAmountInput').value = amt;
+      updateSaveTotalCustom();
     }
 
     function updateBorrowLimitDisplay() {
@@ -575,8 +588,14 @@
       const name = document.getElementById('newMemberName').value.trim();
       const phone = document.getElementById('newMemberPhone').value.trim();
       const village = document.getElementById('newMemberVillage').value.trim();
-      const initShares = parseInt(document.getElementById('newMemberInitialShares').value);
+      const initDeposit = parseFloat(document.getElementById('newMemberInitialDeposit').value) || 0;
 
+      if (initDeposit < 10000 && initDeposit > 0) {
+        alert('❌ Initial deposit must be at least UGX 10,000.');
+        return;
+      }
+
+      const initShares = Math.floor(initDeposit / BASE_SHARE_UNIT);
       const newId = 'M' + Date.now();
       const newMember = {
         id: newId,
@@ -584,7 +603,7 @@
         phone: phone,
         village: village,
         shares: initShares,
-        savings: initShares * SHARE_VALUE_UGX,
+        savings: initDeposit,
         loanBal: 0
       };
 
@@ -601,6 +620,7 @@
 
     function quickSave(id) {
       document.getElementById('saveMemberSelect').value = id;
+      updateSaveTotalCustom();
       openModal('saveModal');
     }
 
@@ -631,23 +651,22 @@
     function handleSave(e) {
       e.preventDefault();
       const id = document.getElementById('saveMemberSelect').value;
-      const shares = parseInt(document.getElementById('saveSharesSelect').value);
+      const depositAmount = parseFloat(document.getElementById('saveAmountInput').value) || 0;
       const member = membersData.find(m => m.id === id);
 
-      const depositAmount = shares * SHARE_VALUE_UGX;
-
-      // STRICT MINIMUM SAVINGS DEPOSIT CHECK
+      // STRICT MINIMUM SAVINGS DEPOSIT CHECK (MIN UGX 10,000, MAX ANY HIGHER AMOUNT)
       if (depositAmount < 10000) {
-        alert(`❌ Minimum Deposit Error!\n\nThe minimum savings deposit for Okello Family Savings Group is UGX 10,000.`);
+        alert(`❌ Minimum Deposit Error!\n\nThe minimum savings deposit is UGX 10,000. You can deposit any higher amount (e.g. UGX 50,000, UGX 100,000, UGX 500,000+).`);
         return;
       }
 
       if (member) {
-        member.shares += shares;
+        const addedShares = Math.floor(depositAmount / BASE_SHARE_UNIT);
+        member.shares += addedShares;
         member.savings += depositAmount;
         renderUI();
         closeModal('saveModal');
-        alert(`✅ Savings Recorded!\n${member.name} deposited ${shares} shares (UGX ${depositAmount.toLocaleString()}).`);
+        alert(`✅ Savings Recorded!\n${member.name} deposited UGX ${depositAmount.toLocaleString()} (${addedShares} shares added).`);
       }
     }
 
