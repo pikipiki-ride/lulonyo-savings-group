@@ -171,6 +171,26 @@
       </div>
 
       <form onsubmit="handleAddMember(event)" class="space-y-4">
+        <!-- Passport Photo Field -->
+        <div class="bg-indigo-50/70 p-3.5 rounded-2xl border border-indigo-100 flex items-center space-x-3.5">
+          <div class="w-16 h-16 rounded-2xl border-2 border-dashed border-indigo-300 bg-white flex items-center justify-center overflow-hidden shrink-0 relative shadow-sm" id="photoPreviewBox">
+            <img id="photoPreviewImg" class="w-full h-full object-cover hidden" alt="Passport Photo">
+            <div id="photoPreviewPlaceholder" class="text-center p-1">
+              <i class="fa-solid fa-camera text-indigo-500 text-base block mb-0.5"></i>
+              <span class="text-[9px] font-extrabold text-indigo-800 block uppercase tracking-tighter">Passport</span>
+            </div>
+          </div>
+          <div class="flex-1">
+            <label class="block text-xs font-bold text-indigo-950 mb-0.5">Member Passport Photo</label>
+            <input type="file" id="newMemberPhoto" accept="image/*" onchange="previewMemberPhoto(event)" class="hidden">
+            <label for="newMemberPhoto" class="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs inline-flex items-center space-x-1.5 transition shadow-sm">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span id="photoUploadBtnText">Upload Passport Photo</span>
+            </label>
+            <span class="text-[10px] text-indigo-700 block mt-1">Standard size 1:1 (PNG/JPG). Optional.</span>
+          </div>
+        </div>
+
         <div>
           <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name</label>
           <input type="text" id="newMemberName" placeholder="e.g. Okello Richard" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
@@ -504,15 +524,15 @@
       }
 
       grid.innerHTML = list.map(m => {
-        const maxBorrowable = Math.max(0, m.savings - m.loanBal);
+        const photoHtml = m.photo 
+          ? `<img src="${m.photo}" class="w-14 h-14 rounded-2xl object-cover border-2 border-emerald-600 shadow-md shrink-0" alt="${m.name}">`
+          : `<div class="w-14 h-14 rounded-2xl bg-emerald-700 text-white font-extrabold flex items-center justify-center text-lg shadow-sm shrink-0">${m.name.split(' ').map(n=>n[0]).join('')}</div>`;
 
         return `
           <div class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
             <div>
               <div class="flex items-center space-x-3 mb-4">
-                <div class="w-12 h-12 rounded-full bg-emerald-700 text-white font-extrabold flex items-center justify-center text-base shadow-sm">
-                  ${m.name.split(' ').map(n=>n[0]).join('')}
-                </div>
+                ${photoHtml}
                 <div>
                   <h3 class="font-bold text-base text-slate-900 leading-snug">${m.name}</h3>
                   <p class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i>${m.village}</p>
@@ -541,7 +561,7 @@
                 <i class="fa-solid fa-piggy-bank"></i>
                 <span>Save</span>
               </button>
-              <button onclick="quickBorrow('${m.id}')" class="${maxBorrowable > 0 ? 'bg-amber-50 hover:bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-400 opacity-60 cursor-not-allowed'} py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+              <button onclick="quickBorrow('${m.id}')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
                 <i class="fa-solid fa-hand-holding"></i>
                 <span>Borrow</span>
               </button>
@@ -588,6 +608,30 @@
       }
     }
 
+    let currentUploadedPhoto = null;
+
+    function previewMemberPhoto(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      if (file.size > 3 * 1024 * 1024) {
+        alert('❌ Image size too large. Please select a photo smaller than 3MB.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        currentUploadedPhoto = e.target.result;
+        const img = document.getElementById('photoPreviewImg');
+        const placeholder = document.getElementById('photoPreviewPlaceholder');
+        img.src = currentUploadedPhoto;
+        img.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        document.getElementById('photoUploadBtnText').innerText = 'Change Photo';
+      };
+      reader.readAsDataURL(file);
+    }
+
     function handleAddMember(e) {
       e.preventDefault();
       const name = document.getElementById('newMemberName').value.trim();
@@ -609,16 +653,23 @@
         village: village,
         shares: initShares,
         savings: initDeposit,
-        loanBal: 0
+        loanBal: 0,
+        photo: currentUploadedPhoto
       };
 
       membersData.unshift(newMember);
       renderUI();
       closeModal('addMemberModal');
 
+      // Reset form & photo
       document.getElementById('newMemberName').value = '';
       document.getElementById('newMemberPhone').value = '';
       document.getElementById('newMemberVillage').value = '';
+      document.getElementById('newMemberPhoto').value = '';
+      currentUploadedPhoto = null;
+      document.getElementById('photoPreviewImg').classList.add('hidden');
+      document.getElementById('photoPreviewPlaceholder').classList.remove('hidden');
+      document.getElementById('photoUploadBtnText').innerText = 'Upload Passport Photo';
 
       alert(`🎉 Family Member Registered!\n${name} from ${village} has been registered to Okello Family Savings Group.`);
     }
