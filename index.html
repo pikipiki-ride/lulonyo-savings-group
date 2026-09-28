@@ -29,11 +29,14 @@
       </div>
 
       <div class="flex items-center space-x-2">
+        <div id="treasurerAuthContainer">
+          <!-- Dynamic Treasurer Status Button -->
+        </div>
         <button onclick="openModal('addMemberModal')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
           <i class="fa-solid fa-user-plus"></i>
           <span>+ Add Member</span>
         </button>
-        <button onclick="openModal('shareoutModal')" class="bg-yellow-400 hover:bg-yellow-300 text-emerald-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+        <button onclick="requireTreasurerAuth('shareoutModal')" class="bg-yellow-400 hover:bg-yellow-300 text-emerald-950 font-bold px-3.5 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
           <i class="fa-solid fa-calculator"></i>
           <span>Share-Out Profit</span>
         </button>
@@ -139,11 +142,11 @@
           <i class="fa-solid fa-user-plus"></i>
           <span>+ Register New Member</span>
         </button>
-        <button onclick="openModal('saveModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+        <button onclick="requireTreasurerAuth('saveModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
           <i class="fa-solid fa-piggy-bank"></i>
           <span>+ Deposit Savings</span>
         </button>
-        <button onclick="openModal('borrowModal')" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+        <button onclick="requireTreasurerAuth('borrowModal')" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
           <i class="fa-solid fa-hand-holding-heart"></i>
           <span>+ Borrow Money</span>
         </button>
@@ -430,7 +433,54 @@
             <!-- Dynamic shareout rows -->
           </tbody>
         </table>
+  <!-- MODAL: TREASURER PIN AUTHORIZATION -->
+  <div id="treasurerPinModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 text-center animate-in fade-in zoom-in duration-150">
+      <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl mx-auto mb-3 shadow-inner">
+        <i class="fa-solid fa-user-shield"></i>
       </div>
+      <h3 class="font-extrabold text-lg text-slate-900">Treasurer Authorization</h3>
+      <p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed">
+        Only the <strong>Group Treasurer</strong> (Mobile Money: <span class="font-bold text-slate-800">0788755942</span>) can record deposits, approve loans, or update payments.
+      </p>
+
+      <form onsubmit="handleTreasurerLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Enter Treasurer PIN</label>
+          <input type="password" id="treasurerPinInput" maxlength="6" placeholder="Enter PIN (Default: 1234)" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-center text-xl font-bold tracking-widest text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+        <p id="treasurerPinError" class="text-xs font-bold text-red-600 hidden">❌ Incorrect PIN. Only the Treasurer can update payments.</p>
+        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-amber-600/30 transition text-sm">
+          <i class="fa-solid fa-key mr-1.5"></i> Unlock Treasurer Access
+        </button>
+        <button type="button" onclick="closeModal('treasurerPinModal')" class="text-xs font-semibold text-slate-400 hover:text-slate-600 block w-full mt-2">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: CHANGE TREASURER PIN -->
+  <div id="changePinModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 text-center animate-in fade-in zoom-in duration-150">
+      <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-xl mx-auto mb-3">
+        <i class="fa-solid fa-key"></i>
+      </div>
+      <h3 class="font-extrabold text-lg text-slate-900">Change Treasurer PIN</h3>
+      <p class="text-xs text-slate-500 mt-1 mb-4">Set a new secret PIN to protect payment entries.</p>
+
+      <form onsubmit="handleChangePin(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase text-left mb-1">New PIN (4-6 digits)</label>
+          <input type="password" id="newPinInput" maxlength="6" minlength="4" placeholder="e.g. 5678" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-center text-lg font-bold text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg transition text-sm">
+          Save New PIN
+        </button>
+        <button type="button" onclick="closeModal('changePinModal')" class="text-xs font-semibold text-slate-400 hover:text-slate-600 block w-full mt-2">
+          Cancel
+        </button>
+      </form>
     </div>
   </div>
 
@@ -453,6 +503,96 @@
 
     let membersData = loadMembersFromStorage();
     let currentProfitMode = 'percent';
+
+    // TREASURER AUTHORIZATION SYSTEM
+    const TREASURER_PIN_KEY = 'okello_treasurer_pin_db';
+    let isTreasurerAuthenticated = false;
+    let pendingTargetModal = null;
+
+    function getTreasurerPIN() {
+      return localStorage.getItem(TREASURER_PIN_KEY) || '1234';
+    }
+
+    function requireTreasurerAuth(targetModalId, callback) {
+      if (isTreasurerAuthenticated) {
+        if (callback) callback();
+        else if (targetModalId) openModal(targetModalId);
+      } else {
+        pendingTargetModal = { modalId: targetModalId, callback: callback };
+        document.getElementById('treasurerPinInput').value = '';
+        document.getElementById('treasurerPinError').classList.add('hidden');
+        openModal('treasurerPinModal');
+      }
+    }
+
+    function handleTreasurerLogin(e) {
+      e.preventDefault();
+      const inputPin = document.getElementById('treasurerPinInput').value.trim();
+      if (inputPin === getTreasurerPIN()) {
+        isTreasurerAuthenticated = true;
+        closeModal('treasurerPinModal');
+        updateTreasurerBadgeUI();
+        if (pendingTargetModal) {
+          if (pendingTargetModal.callback) pendingTargetModal.callback();
+          else if (pendingTargetModal.modalId) openModal(pendingTargetModal.modalId);
+          pendingTargetModal = null;
+        }
+      } else {
+        document.getElementById('treasurerPinError').classList.remove('hidden');
+      }
+    }
+
+    function logoutTreasurer() {
+      isTreasurerAuthenticated = false;
+      updateTreasurerBadgeUI();
+      alert('🔒 Treasurer Mode locked. Payment updates are now protected.');
+    }
+
+    function openChangePinModal() {
+      if (!isTreasurerAuthenticated) {
+        requireTreasurerAuth(null, () => openModal('changePinModal'));
+        return;
+      }
+      document.getElementById('newPinInput').value = '';
+      openModal('changePinModal');
+    }
+
+    function handleChangePin(e) {
+      e.preventDefault();
+      const newPin = document.getElementById('newPinInput').value.trim();
+      if (newPin.length < 4) {
+        alert('❌ PIN must be at least 4 digits.');
+        return;
+      }
+      localStorage.setItem(TREASURER_PIN_KEY, newPin);
+      closeModal('changePinModal');
+      alert('✅ Treasurer PIN updated successfully!');
+    }
+
+    function updateTreasurerBadgeUI() {
+      const container = document.getElementById('treasurerAuthContainer');
+      if (!container) return;
+      if (isTreasurerAuthenticated) {
+        container.innerHTML = `
+          <div class="flex items-center space-x-1">
+            <button onclick="logoutTreasurer()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+              <i class="fa-solid fa-user-shield text-yellow-300"></i>
+              <span>Treasurer Active</span>
+            </button>
+            <button onclick="openChangePinModal()" title="Change PIN" class="bg-emerald-900/60 hover:bg-emerald-900 text-yellow-300 p-2 rounded-xl text-xs shadow transition">
+              <i class="fa-solid fa-key"></i>
+            </button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button onclick="requireTreasurerAuth(null, null)" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
+            <i class="fa-solid fa-lock"></i>
+            <span>Treasurer Login</span>
+          </button>
+        `;
+      }
+    }
 
     function setProfitMode(mode) {
       currentProfitMode = mode;
@@ -477,6 +617,7 @@
 
     function renderUI() {
       saveMembersToStorage();
+      updateTreasurerBadgeUI();
 
       const totalSavings = membersData.reduce((sum, m) => sum + m.savings, 0);
       const totalLoans = membersData.reduce((sum, m) => sum + m.loanBal, 0);
@@ -557,15 +698,15 @@
 
             <!-- Actions -->
             <div class="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-100 text-[11px] font-bold">
-              <button onclick="quickSave('${m.id}')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+              <button onclick="requireTreasurerAuth(null, () => quickSave('${m.id}'))" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
                 <i class="fa-solid fa-piggy-bank"></i>
                 <span>Save</span>
               </button>
-              <button onclick="quickBorrow('${m.id}')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+              <button onclick="requireTreasurerAuth(null, () => quickBorrow('${m.id}'))" class="bg-amber-50 hover:bg-amber-100 text-amber-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
                 <i class="fa-solid fa-hand-holding"></i>
                 <span>Borrow</span>
               </button>
-              <button onclick="openRepayModal('${m.id}')" class="${m.loanBal > 0 ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed'} py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+              <button onclick="requireTreasurerAuth(null, () => openRepayModal('${m.id}'))" class="${m.loanBal > 0 ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed'} py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
                 <i class="fa-solid fa-receipt"></i>
                 <span>Repay</span>
               </button>
