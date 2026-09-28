@@ -84,13 +84,13 @@
         </div>
       </div>
 
-      <div class="bg-amber-50 border border-amber-200/80 p-3.5 rounded-xl flex items-center space-x-3 text-xs text-amber-900">
-        <div class="w-9 h-9 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-base shrink-0 shadow-sm">
-          <i class="fa-solid fa-shield-cat"></i>
+      <div class="bg-indigo-50 border border-indigo-200/80 p-3.5 rounded-xl flex items-center space-x-3 text-xs text-indigo-900">
+        <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-base shrink-0 shadow-sm">
+          <i class="fa-solid fa-handshake"></i>
         </div>
         <div>
-          <strong class="font-bold text-amber-950 block text-sm">Strict Borrowing Rule:</strong>
-          <span class="text-amber-800">Members are strictly NOT allowed to borrow beyond their accumulated total savings balance.</span>
+          <strong class="font-bold text-indigo-950 block text-sm">Open Family Borrowing:</strong>
+          <span class="text-indigo-800">Family members can borrow loans beyond their savings balance based on group trust & consensus.</span>
         </div>
       </div>
     </div>
@@ -267,7 +267,7 @@
     </div>
   </div>
 
-  <!-- MODAL 2: BORROW LOAN (STRICT SAVINGS LIMIT) -->
+  <!-- MODAL 2: BORROW LOAN (OPEN FAMILY BORROWING) -->
   <div id="borrowModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
       <div class="flex justify-between items-center mb-5 border-b border-slate-100 pb-3">
@@ -288,16 +288,16 @@
           </select>
         </div>
 
-        <!-- Strict Limit Warning Box -->
-        <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-xs">
-          <span class="text-amber-800 block font-semibold">Strict Member Savings Limit:</span>
-          <strong class="text-amber-950 font-extrabold text-sm block mt-0.5" id="borrowMaxLimitDisplay">Max Borrowable: UGX 0</strong>
-          <span class="text-[11px] text-amber-700 block mt-0.5">*(Borrowing beyond total accumulated savings is prohibited)*</span>
+        <!-- Open Family Loan Info Box -->
+        <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200 text-xs">
+          <span class="text-emerald-900 block font-bold">Open Family Loan Policy:</span>
+          <strong class="text-emerald-950 font-extrabold text-sm block mt-0.5" id="borrowMaxLimitDisplay">Member Savings: UGX 0</strong>
+          <span class="text-[11px] text-emerald-700 block mt-0.5">*(Borrowing beyond current savings is allowed for family members)*</span>
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Loan Amount Requested (UGX)</label>
-          <input type="number" id="borrowAmount" step="5000" min="5000" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <input type="number" id="borrowAmount" step="5000" min="5000" placeholder="Enter loan amount" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
 
         <div>
@@ -470,7 +470,7 @@
 
       if (membersData.length > 0) {
         saveSelect.innerHTML = membersData.map(m => `<option value="${m.id}">${m.name} (${m.village})</option>`).join('');
-        borrowSelect.innerHTML = membersData.map(m => `<option value="${m.id}">${m.name} (${m.village}) - Max: UGX ${(m.savings - m.loanBal).toLocaleString()}</option>`).join('');
+        borrowSelect.innerHTML = membersData.map(m => `<option value="${m.id}">${m.name} (${m.village}) - Saved: UGX ${m.savings.toLocaleString()}</option>`).join('');
       } else {
         saveSelect.innerHTML = '<option value="">No members registered</option>';
         borrowSelect.innerHTML = '<option value="">No members registered</option>';
@@ -581,14 +581,10 @@
       const amountInput = document.getElementById('borrowAmount');
 
       if (member) {
-        const maxLimit = Math.max(0, member.savings - member.loanBal);
-        display.innerText = `Max Borrowable Limit: UGX ${maxLimit.toLocaleString()} (Equal to member savings)`;
-        amountInput.max = maxLimit;
-        if (parseInt(amountInput.value) > maxLimit) {
-          amountInput.value = maxLimit;
-        }
+        display.innerText = `Member Savings Balance: UGX ${member.savings.toLocaleString()} (Active Loan: UGX ${member.loanBal.toLocaleString()})`;
+        amountInput.removeAttribute('max');
       } else {
-        display.innerText = 'Max Borrowable: UGX 0';
+        display.innerText = 'Member Savings: UGX 0';
       }
     }
 
@@ -637,12 +633,6 @@
       const member = membersData.find(m => m.id === id);
       if (!member) return;
 
-      const maxLimit = member.savings - member.loanBal;
-      if (maxLimit <= 0) {
-        alert(`❌ Borrowing Denied!\nMember ${member.name} has UGX ${member.savings.toLocaleString()} in total savings and cannot borrow beyond their savings balance.`);
-        return;
-      }
-
       document.getElementById('borrowMemberSelect').value = id;
       updateBorrowLimitDisplay();
       openModal('borrowModal');
@@ -686,17 +676,15 @@
 
       if (!member) return;
 
-      const maxBorrowable = member.savings - member.loanBal;
-
-      if (amount > maxBorrowable) {
-        alert(`❌ Borrowing Limit Exceeded!\n\nMember ${member.name} has UGX ${member.savings.toLocaleString()} in savings.\nMaximum loan allowed: UGX ${maxBorrowable.toLocaleString()}.`);
+      if (amount <= 0 || isNaN(amount)) {
+        alert('❌ Please enter a valid loan amount.');
         return;
       }
 
       member.loanBal += amount;
       renderUI();
       closeModal('borrowModal');
-      alert(`🤝 Loan Approved!\nUGX ${amount.toLocaleString()} disbursed to ${member.name}.`);
+      alert(`🤝 Loan Approved!\nUGX ${amount.toLocaleString()} disbursed to ${member.name}.\nNew Total Loan Balance: UGX ${member.loanBal.toLocaleString()}.`);
     }
 
     function handleRepay(e) {
