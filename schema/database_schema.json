@@ -1,0 +1,107 @@
+{
+  "database_name": "VSLA_Digital_Ledger_Database",
+  "version": "1.0",
+  "currency": "UGX",
+  "tables": [
+    {
+      "name": "Members",
+      "columns": [
+        {"name": "MemberID", "type": "STRING", "primary_key": true, "example": "MEM-001"},
+        {"name": "FullName", "type": "STRING", "example": "Akena Francis"},
+        {"name": "PhoneNumber", "type": "PHONE", "example": "+256771234567"},
+        {"name": "Gender", "type": "ENUM", "values": ["Male", "Female"]},
+        {"name": "Village", "type": "STRING", "example": "Bardege"},
+        {"name": "Subcounty", "type": "STRING", "example": "Laroo-Pece"},
+        {"name": "District", "type": "STRING", "example": "Gulu"},
+        {"name": "NationalID_NIN", "type": "STRING", "example": "CM90012345678A"},
+        {"name": "JoiningDate", "type": "DATE", "example": "2026-01-15"},
+        {"name": "TotalSharesAccumulated", "type": "NUMBER", "formula": "=SUMIF(Savings_Transactions!C:C, A2, Savings_Transactions!D:D)"},
+        {"name": "TotalSavingsUGX", "type": "CURRENCY", "formula": "=SUMIF(Savings_Transactions!C:C, A2, Savings_Transactions!F:F)"},
+        {"name": "CurrentLoanBalanceUGX", "type": "CURRENCY", "formula": "=SUMIF(Loans!B:B, A2, Loans!L:L)"},
+        {"name": "Status", "type": "ENUM", "values": ["Active", "Dormant", "Withdrawn"]}
+      ]
+    },
+    {
+      "name": "Meetings",
+      "columns": [
+        {"name": "MeetingID", "type": "STRING", "primary_key": true, "example": "MTG-2026-001"},
+        {"name": "MeetingDate", "type": "DATE", "example": "2026-09-25"},
+        {"name": "CycleNumber", "type": "INTEGER", "example": 1},
+        {"name": "MeetingNumber", "type": "INTEGER", "example": 36},
+        {"name": "VenueLocation", "type": "STRING", "example": "Pece Primary School Ground"},
+        {"name": "RecordedBy", "type": "STRING", "example": "Secretary - Adong Grace"},
+        {"name": "TotalMembersPresent", "type": "INTEGER", "example": 28},
+        {"name": "TotalSharesBoughtThisMeeting", "type": "NUMBER", "example": 112},
+        {"name": "TotalSavingsCollectedUGX", "type": "CURRENCY", "example": 224000},
+        {"name": "TotalWelfareCollectedUGX", "type": "CURRENCY", "example": 28000},
+        {"name": "TotalFinesCollectedUGX", "type": "CURRENCY", "example": 5000}
+      ]
+    },
+    {
+      "name": "Savings_Transactions",
+      "columns": [
+        {"name": "TransactionID", "type": "STRING", "primary_key": true, "example": "TXN-1001"},
+        {"name": "MeetingID", "type": "FOREIGN_KEY", "references": "Meetings.MeetingID"},
+        {"name": "MemberID", "type": "FOREIGN_KEY", "references": "Members.MemberID"},
+        {"name": "SharesBought", "type": "NUMBER", "example": 4},
+        {"name": "ShareValueUGX", "type": "CURRENCY", "example": 2000},
+        {"name": "TotalSavingsUGX", "type": "CURRENCY", "formula": "=D2*E2"},
+        {"name": "WelfareFundUGX", "type": "CURRENCY", "example": 1000},
+        {"name": "FineAmountUGX", "type": "CURRENCY", "example": 0},
+        {"name": "FineReason", "type": "STRING", "example": "Late arrival"},
+        {"name": "RecordedTimestamp", "type": "DATETIME", "example": "2026-09-25T14:30:00"}
+      ]
+    },
+    {
+      "name": "Loans",
+      "columns": [
+        {"name": "LoanID", "type": "STRING", "primary_key": true, "example": "LN-2026-015"},
+        {"name": "MemberID", "type": "FOREIGN_KEY", "references": "Members.MemberID"},
+        {"name": "PrincipalUGX", "type": "CURRENCY", "example": 300000},
+        {"name": "InterestRateMonthlyPercent", "type": "PERCENTAGE", "example": 0.05},
+        {"name": "DurationMonths", "type": "INTEGER", "example": 3},
+        {"name": "TotalInterestUGX", "type": "CURRENCY", "formula": "=C2*D2*E2"},
+        {"name": "TotalRepayableUGX", "type": "CURRENCY", "formula": "=C2+F2"},
+        {"name": "Guarantor1_ID", "type": "FOREIGN_KEY", "references": "Members.MemberID"},
+        {"name": "Guarantor2_ID", "type": "FOREIGN_KEY", "references": "Members.MemberID"},
+        {"name": "ApplicationDate", "type": "DATE", "example": "2026-08-01"},
+        {"name": "DueDate", "type": "DATE", "example": "2026-11-01"},
+        {"name": "PrincipalPaidUGX", "type": "CURRENCY", "formula": "=SUMIF(Loan_Repayments!B:B, A2, Loan_Repayments!E:E)"},
+        {"name": "InterestPaidUGX", "type": "CURRENCY", "formula": "=SUMIF(Loan_Repayments!B:B, A2, Loan_Repayments!F:F)"},
+        {"name": "BalanceRemainingUGX", "type": "CURRENCY", "formula": "=G2-(L2+M2)"},
+        {"name": "Status", "type": "ENUM", "values": ["Pending Approval", "Active", "Fully Paid", "Defaulted"]}
+      ]
+    },
+    {
+      "name": "Loan_Repayments",
+      "columns": [
+        {"name": "RepaymentID", "type": "STRING", "primary_key": true, "example": "REP-5001"},
+        {"name": "LoanID", "type": "FOREIGN_KEY", "references": "Loans.LoanID"},
+        {"name": "MemberID", "type": "FOREIGN_KEY", "references": "Members.MemberID"},
+        {"name": "MeetingID", "type": "FOREIGN_KEY", "references": "Meetings.MeetingID"},
+        {"name": "PrincipalPaidUGX", "type": "CURRENCY", "example": 100000},
+        {"name": "InterestPaidUGX", "type": "CURRENCY", "example": 15000},
+        {"name": "LatePenaltyPaidUGX", "type": "CURRENCY", "example": 0},
+        {"name": "TotalPaidUGX", "type": "CURRENCY", "formula": "=E2+F2+G2"},
+        {"name": "PaymentDate", "type": "DATE", "example": "2026-09-25"},
+        {"name": "ReceiptNumber", "type": "STRING", "example": "REC-9941"}
+      ]
+    },
+    {
+      "name": "ShareOut_Cycles",
+      "columns": [
+        {"name": "CycleID", "type": "STRING", "primary_key": true, "example": "CYC-2026"},
+        {"name": "CycleName", "type": "STRING", "example": "2026 Annual Cycle"},
+        {"name": "StartDate", "type": "DATE", "example": "2026-01-01"},
+        {"name": "ShareOutDate", "type": "DATE", "example": "2026-12-15"},
+        {"name": "TotalGroupSharesBought", "type": "NUMBER", "example": 4500},
+        {"name": "TotalGroupSavingsUGX", "type": "CURRENCY", "example": 9000000},
+        {"name": "TotalInterestEarnedUGX", "type": "CURRENCY", "example": 1350000},
+        {"name": "TotalFinesEarnedUGX", "type": "CURRENCY", "example": 120000},
+        {"name": "TotalNetDistributableProfitUGX", "type": "CURRENCY", "formula": "=G2+H2"},
+        {"name": "ValuePerShareAtShareOutUGX", "type": "CURRENCY", "formula": "=(F2+I2)/E2"},
+        {"name": "Status", "type": "ENUM", "values": ["Active", "Completed", "Audited"]}
+      ]
+    }
+  ]
+}

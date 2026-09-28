@@ -1,0 +1,31 @@
+MemberID,FullName,PhoneNumber,Gender,Village,Subcounty,District,NationalID_NIN,JoiningDate,Status
+MEM-001,Adong David,+256771807017,Female,Bardege,Awach Subcounty,Gulu,CM9254745W,2026-01-10,Active
+MEM-002,Acan David,+256777372609,Female,Patiko,Bardege-Layibi,Gulu,CM9131765Q,2026-01-10,Active
+MEM-003,Okello Beatrice,+256772709952,Male,Layibi,Awach Subcounty,Gulu,CM9816038H,2026-01-10,Active
+MEM-004,Akello Nancy,+256774867504,Female,Patiko,Pabo Town Council,Gulu,CM9045911K,2026-01-10,Active
+MEM-005,Amony James,+256771781134,Female,Bobobi,Pabo Town Council,Gulu,CM9642486S,2026-01-10,Active
+MEM-006,Okello Moses,+256776535908,Male,Unyama,Bardege-Layibi,Gulu,CM8941377A,2026-01-10,Active
+MEM-007,Opio Harriet,+256772189052,Male,Koro,Awach Subcounty,Gulu,CM9544510A,2026-01-10,Active
+MEM-008,Oloya Beatrice,+256773118906,Male,Layibi,Unyama Subcounty,Gulu,CM9444009S,2026-01-10,Active
+MEM-009,Oyet David,+256778511440,Male,Laroo,Unyama Subcounty,Gulu,CM8932985Z,2026-01-10,Active
+MEM-010,Aryemo Beatrice,+256772132763,Female,Unyama,Pabo Town Council,Gulu,CM9521052V,2026-01-10,Active
+MEM-011,Oyet Grace,+256772128775,Male,Pabo,Awach Subcounty,Gulu,CM9081775W,2026-01-10,Active
+MEM-012,Ojok Florence,+256772273989,Male,Koro,Awach Subcounty,Gulu,CM8108470T,2026-01-10,Active
+MEM-013,Oketayot James,+256779149347,Male,Unyama,Unyama Subcounty,Gulu,CM9237292C,2026-01-10,Active
+MEM-014,Akello Charles,+256775712078,Female,Koro,Awach Subcounty,Gulu,CM9791685Q,2026-01-10,Active
+MEM-015,Aryemo Brenda,+256772840556,Female,Patiko,Bardege-Layibi,Gulu,CM8073711Q,2026-01-10,Active
+MEM-016,Oloya Brenda,+256778402376,Male,Bardege,Awach Subcounty,Gulu,CM9543896W,2026-01-10,Active
+MEM-017,Ojok Beatrice,+256779146436,Male,Awach,Laroo-Pece,Gulu,CM8779791A,2026-01-10,Active
+MEM-018,Odong Grace,+256771519848,Male,Unyama,Laroo-Pece,Gulu,CM9758988W,2026-01-10,Active
+MEM-019,Oloya Florence,+256775982398,Male,Unyama,Laroo-Pece,Gulu,CM8045779B,2026-01-10,Active
+MEM-020,Ojok Charles,+256776023784,Male,Patiko,Unyama Subcounty,Gulu,CM8062049L,2026-01-10,Active
+MEM-021,Oyet Charles,+256778948997,Male,Laroo,Bardege-Layibi,Gulu,CM8379864D,2026-01-10,Active
+MEM-022,Okello Harriet,+256778345623,Male,Patiko,Unyama Subcounty,Gulu,CM8957800P,2026-01-10,Active
+MEM-023,Apio Francis,+256771502863,Female,Awach,Unyama Subcounty,Gulu,CM9673928S,2026-01-10,Active
+MEM-024,Akello Florence,+256777610717,Female,Bardege,Awach Subcounty,Gulu,CM9351680S,2026-01-10,Active
+MEM-025,Komakech Geoffrey,+256776528706,Male,Pabo,Bardege-Layibi,Gulu,CM9564054G,2026-01-10,Active
+MEM-026,Lalam Evelyn,+256774508242,Female,Pabo,Unyama Subcounty,Gulu,CM8333159V,2026-01-10,Active
+MEM-027,Amony Brenda,+256774631934,Female,Koro,Pabo Town Council,Gulu,CM8975129X,2026-01-10,Active
+MEM-028,Acan Harriet,+256776026397,Female,Pece,Bardege-Layibi,Gulu,CM9399149B,2026-01-10,Active
+MEM-029,Akena Christine,+256773465476,Male,Bardege,Unyama Subcounty,Gulu,CM8463722M,2026-01-10,Active
+MEM-030,Oloya Charles,+256775860917,Male,Pabo,Laroo-Pece,Gulu,CM8131743L,2026-01-10,Active
