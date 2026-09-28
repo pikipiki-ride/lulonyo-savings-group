@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lulonyo Savings Group - Northern Uganda</title>
+  <title>Okello Family Savings Group - Northern Uganda</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="manifest" href="manifest.json">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
@@ -17,13 +18,13 @@
   <header class="bg-gradient-to-r from-emerald-850 via-emerald-800 to-teal-900 text-white shadow-md sticky top-0 z-40 border-b border-emerald-700/60" style="background-color: #064e3b;">
     <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
       <div class="flex items-center space-x-3.5">
-        <!-- Lulonyo Savings Group Logo -->
+        <!-- Okello Family Savings Group Logo -->
         <div class="w-12 h-12 rounded-xl bg-white p-1 shadow-md border border-emerald-400 flex items-center justify-center overflow-hidden">
-          <img src="logo.jpg" alt="Lulonyo Savings Group Logo" class="w-full h-full object-cover rounded-lg">
+          <img src="logo.jpg" alt="Okello Family Savings Group Logo" class="w-full h-full object-cover rounded-lg">
         </div>
         <div>
-          <h1 class="font-extrabold text-xl tracking-tight leading-none text-yellow-300">LULONYO SAVINGS GROUP</h1>
-          <p class="text-xs text-emerald-200 mt-1 font-medium">Community Savings & Micro-Loans • Northern Uganda</p>
+          <h1 class="font-extrabold text-xl tracking-tight leading-none text-yellow-300">OKELLO FAMILY SAVINGS GROUP</h1>
+          <p class="text-xs text-emerald-200 mt-1 font-medium">Saving Together, Growing Together • Northern Uganda</p>
         </div>
       </div>
 
@@ -55,7 +56,7 @@
             <span class="text-xs font-bold uppercase tracking-wider">OUR VISION</span>
           </div>
           <p class="text-sm font-medium text-emerald-100 leading-relaxed">
-            "To be a leading self-sustaining community financial institution in Northern Uganda that empowers every household with financial independence, climate-resilient livelihoods, and generational prosperity."
+            "To be a united, self-sustaining family financial institution in Northern Uganda that empowers every family member with financial independence, growth, and generational prosperity."
           </p>
         </div>
 
@@ -65,9 +66,20 @@
             <span class="text-xs font-bold uppercase tracking-wider">OUR MISSION</span>
           </div>
           <p class="text-sm font-medium text-emerald-100 leading-relaxed">
-            "To foster inclusive economic growth across Northern Uganda by providing transparent micro-savings, fair credit, and digital tools that uplift smallholder farmers, trade, and rural families."
+            "To foster family economic growth by providing transparent micro-savings, responsible credit strictly within member savings limits, and digital tools for all family members."
           </p>
         </div>
+      </div>
+    </div>
+
+    <!-- Strict Policy Badge -->
+    <div class="bg-amber-50 border border-amber-200/80 p-3 rounded-xl mb-6 flex items-center space-x-3 text-xs text-amber-900">
+      <div class="w-7 h-7 rounded-lg bg-amber-200 text-amber-900 flex items-center justify-center font-bold text-sm shrink-0">
+        <i class="fa-solid fa-shield-cat"></i>
+      </div>
+      <div>
+        <strong class="font-bold">Strict Borrowing Rule Enforced:</strong>
+        <span class="text-amber-800"> Members are strictly NOT allowed to borrow beyond their accumulated total savings balance.</span>
       </div>
     </div>
 
@@ -76,7 +88,7 @@
       <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
         <div>
           <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Group Savings</span>
-          <span class="text-2xl font-extrabold text-emerald-700" id="totalGroupSavings">UGX 1,982,000</span>
+          <span class="text-2xl font-extrabold text-emerald-700" id="totalGroupSavings">UGX 0</span>
         </div>
         <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
           <i class="fa-solid fa-vault"></i>
@@ -86,7 +98,7 @@
       <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
         <div>
           <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Active Loans Out</span>
-          <span class="text-2xl font-extrabold text-amber-600" id="totalGroupLoans">UGX 245,000</span>
+          <span class="text-2xl font-extrabold text-amber-600" id="totalGroupLoans">UGX 0</span>
         </div>
         <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
           <i class="fa-solid fa-hand-holding-dollar"></i>
@@ -96,7 +108,7 @@
       <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
         <div>
           <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Group Members</span>
-          <span class="text-2xl font-extrabold text-slate-900" id="totalMemberCount">9 Members</span>
+          <span class="text-2xl font-extrabold text-slate-900" id="totalMemberCount">0 Members</span>
         </div>
         <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
           <i class="fa-solid fa-people-group"></i>
@@ -113,7 +125,7 @@
       <div class="flex items-center space-x-2 w-full md:w-auto">
         <button onclick="openModal('addMemberModal')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
           <i class="fa-solid fa-user-plus"></i>
-          <span>+ Add New Member</span>
+          <span>+ Register New Member</span>
         </button>
         <button onclick="openModal('saveModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs flex items-center space-x-1.5 shadow transition">
           <i class="fa-solid fa-piggy-bank"></i>
@@ -128,7 +140,7 @@
 
     <!-- Member Cards List -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="membersGrid">
-      <!-- Dynamic Member Cards Rendered Here -->
+      <!-- Empty state or dynamic cards -->
     </div>
 
   </main>
@@ -141,7 +153,7 @@
           <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
             <i class="fa-solid fa-user-plus"></i>
           </div>
-          <h3 class="font-bold text-lg text-slate-900">Register New Member</h3>
+          <h3 class="font-bold text-lg text-slate-900">Register New Family Member</h3>
         </div>
         <button onclick="closeModal('addMemberModal')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
       </div>
@@ -149,7 +161,7 @@
       <form onsubmit="handleAddMember(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name</label>
-          <input type="text" id="newMemberName" placeholder="e.g. Otim Francis" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          <input type="text" id="newMemberName" placeholder="e.g. Okello Richard" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
         </div>
 
         <div>
@@ -197,7 +209,7 @@
         <div>
           <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Select Member</label>
           <select id="saveMemberSelect" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-            <!-- Member options -->
+            <!-- Dynamic options -->
           </select>
         </div>
 
@@ -224,7 +236,7 @@
     </div>
   </div>
 
-  <!-- MODAL 2: BORROW LOAN -->
+  <!-- MODAL 2: BORROW LOAN (STRICT SAVINGS LIMIT) -->
   <div id="borrowModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
       <div class="flex justify-between items-center mb-5 border-b border-slate-100 pb-3">
@@ -240,14 +252,21 @@
       <form onsubmit="handleBorrow(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Borrowing Member</label>
-          <select id="borrowMemberSelect" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <select id="borrowMemberSelect" onchange="updateBorrowLimitDisplay()" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
             <!-- Options -->
           </select>
         </div>
 
+        <!-- Strict Limit Warning Box -->
+        <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-xs">
+          <span class="text-amber-800 block font-semibold">Strict Member Savings Limit:</span>
+          <strong class="text-amber-950 font-extrabold text-sm block mt-0.5" id="borrowMaxLimitDisplay">Max Borrowable: UGX 0</strong>
+          <span class="text-[11px] text-amber-700 block mt-0.5">*(Borrowing beyond total accumulated savings is prohibited)*</span>
+        </div>
+
         <div>
-          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Loan Amount requested (UGX)</label>
-          <input type="number" id="borrowAmount" step="10000" min="20000" max="1000000" value="100000" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Loan Amount Requested (UGX)</label>
+          <input type="number" id="borrowAmount" step="5000" min="5000" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
 
         <div>
@@ -299,7 +318,7 @@
     <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-100 max-h-[92vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
         <div>
-          <h3 class="font-extrabold text-xl text-slate-900">LULONYO SAVINGS GROUP — Percentage Share-Out Report</h3>
+          <h3 class="font-extrabold text-xl text-slate-900">OKELLO FAMILY SAVINGS GROUP — Share-Out Report</h3>
           <p class="text-xs text-slate-500">Decide profit distribution by Percentage Return (%) or Total Profit Amount (UGX)</p>
         </div>
         <button onclick="closeModal('shareoutModal')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
@@ -329,17 +348,17 @@
 
           <div id="ugxInputGroup" class="hidden">
             <label class="block text-[11px] font-bold text-slate-700 mb-1">Total Group Profit (UGX)</label>
-            <input type="number" id="customProfitInput" step="5000" min="0" value="173000" oninput="recalculateCustomShareout()" class="w-full bg-white border border-amber-300 rounded-xl p-2.5 text-sm font-extrabold text-amber-900 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <input type="number" id="customProfitInput" step="5000" min="0" value="100000" oninput="recalculateCustomShareout()" class="w-full bg-white border border-amber-300 rounded-xl p-2.5 text-sm font-extrabold text-amber-900 focus:ring-2 focus:ring-amber-500 focus:outline-none">
           </div>
 
           <div class="bg-white p-2.5 rounded-xl border border-amber-200">
             <span class="text-[11px] text-slate-500 block">Total Profit Distributed:</span>
-            <strong class="text-sm text-emerald-800 font-extrabold" id="soTotalProfitDisplay">UGX 100,200</strong>
+            <strong class="text-sm text-emerald-800 font-extrabold" id="soTotalProfitDisplay">UGX 0</strong>
           </div>
 
           <div class="bg-white p-2.5 rounded-xl border border-amber-200">
             <span class="text-[11px] text-slate-500 block">Profit per Share:</span>
-            <strong class="text-sm text-purple-700 font-extrabold" id="soDiv">UGX 300.00</strong>
+            <strong class="text-sm text-purple-700 font-extrabold" id="soDiv">UGX 0.00</strong>
           </div>
         </div>
       </div>
@@ -365,20 +384,23 @@
   </div>
 
   <script>
-    // State Data
-    let membersData = [
-      { id: "M1", name: "Adong David", phone: "+256771807017", village: "Bardege", shares: 44, savings: 88000, loanBal: 0 },
-      { id: "M2", name: "Acan David", phone: "+256777372609", village: "Patiko", shares: 32, savings: 64000, loanBal: 45000 },
-      { id: "M3", name: "Okello Beatrice", phone: "+256772709952", village: "Layibi", shares: 48, savings: 96000, loanBal: 0 },
-      { id: "M4", name: "Akello Nancy", phone: "+256774867504", village: "Patiko", shares: 25, savings: 50000, loanBal: 120000 },
-      { id: "M5", name: "Amony James", phone: "+256771781134", village: "Bobobi", shares: 36, savings: 72000, loanBal: 0 },
-      { id: "M6", name: "Okello Moses", phone: "+256776535908", village: "Unyama", shares: 50, savings: 100000, loanBal: 0 },
-      { id: "M7", name: "Opio Harriet", phone: "+256772189052", village: "Koro", shares: 18, savings: 36000, loanBal: 80000 },
-      { id: "M8", name: "Oloya Beatrice", phone: "+256773118906", village: "Layibi", shares: 42, savings: 84000, loanBal: 0 },
-      { id: "M9", name: "Oyet David", phone: "+256778511440", village: "Laroo", shares: 39, savings: 78000, loanBal: 0 }
-    ];
+    // LocalStorage persistence for Okello Family Savings Group
+    const STORAGE_KEY = 'okello_family_members_db';
 
-    let currentProfitMode = 'percent'; // 'percent' or 'amount'
+    function loadMembersFromStorage() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try { return JSON.parse(saved); } catch(e) {}
+      }
+      return []; // Default empty sheet
+    }
+
+    function saveMembersToStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(membersData));
+    }
+
+    let membersData = loadMembersFromStorage();
+    let currentProfitMode = 'percent';
 
     function setProfitMode(mode) {
       currentProfitMode = mode;
@@ -402,6 +424,8 @@
     }
 
     function renderUI() {
+      saveMembersToStorage();
+
       // 1. Render Summary Totals
       const totalSavings = membersData.reduce((sum, m) => sum + m.savings, 0);
       const totalLoans = membersData.reduce((sum, m) => sum + m.loanBal, 0);
@@ -414,8 +438,15 @@
       const saveSelect = document.getElementById('saveMemberSelect');
       const borrowSelect = document.getElementById('borrowMemberSelect');
 
-      saveSelect.innerHTML = membersData.map(m => `<option value="${m.id}">${m.name} (${m.village})</option>`).join('');
-      borrowSelect.innerHTML = membersData.map(m => `<option value="${m.id}">${m.name} (${m.village})</option>`).join('');
+      if (membersData.length > 0) {
+        saveSelect.innerHTML = membersData.map(m => `<option value="${m.id}">${m.name} (${m.village})</option>`).join('');
+        borrowSelect.innerHTML = membersData.map(m => `<option value="${m.id}">${m.name} (${m.village}) - Max: UGX ${(m.savings - m.loanBal).toLocaleString()}</option>`).join('');
+      } else {
+        saveSelect.innerHTML = '<option value="">No members registered</option>';
+        borrowSelect.innerHTML = '<option value="">No members registered</option>';
+      }
+
+      updateBorrowLimitDisplay();
 
       // 3. Render Cards
       renderMemberCards(membersData);
@@ -423,52 +454,77 @@
 
     function renderMemberCards(list) {
       const grid = document.getElementById('membersGrid');
-      grid.innerHTML = list.map(m => `
-        <div class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
-          <div>
-            <div class="flex items-center space-x-3 mb-4">
-              <div class="w-12 h-12 rounded-full bg-emerald-700 text-white font-extrabold flex items-center justify-center text-base shadow-sm">
-                ${m.name.split(' ').map(n=>n[0]).join('')}
+
+      if (!list || list.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-3 bg-white border-2 border-dashed border-slate-200 rounded-3xl p-10 text-center space-y-4">
+            <div class="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-3xl mx-auto">
+              <i class="fa-solid fa-user-group"></i>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-lg text-slate-800">Welcome to Okello Family Savings Group!</h3>
+              <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">
+                Your member database is currently empty. Click <strong>"+ Register New Member"</strong> below to add family members to the group.
+              </p>
+            </div>
+            <button onclick="openModal('addMemberModal')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs shadow-lg transition">
+              <i class="fa-solid fa-user-plus mr-1.5"></i> Register First Family Member
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map(m => {
+        const maxBorrowable = Math.max(0, m.savings - m.loanBal);
+
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+            <div>
+              <div class="flex items-center space-x-3 mb-4">
+                <div class="w-12 h-12 rounded-full bg-emerald-700 text-white font-extrabold flex items-center justify-center text-base shadow-sm">
+                  ${m.name.split(' ').map(n=>n[0]).join('')}
+                </div>
+                <div>
+                  <h3 class="font-bold text-base text-slate-900 leading-snug">${m.name}</h3>
+                  <p class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i>${m.village}</p>
+                </div>
               </div>
-              <div>
-                <h3 class="font-bold text-base text-slate-900 leading-snug">${m.name}</h3>
-                <p class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i>${m.village}</p>
+
+              <!-- Balances -->
+              <div class="grid grid-cols-2 gap-2 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs">
+                <div>
+                  <span class="text-slate-400 block font-semibold">Total Savings</span>
+                  <strong class="text-emerald-800 text-sm font-extrabold">UGX ${m.savings.toLocaleString()}</strong>
+                  <span class="text-[10px] text-slate-400 block mt-0.5">(${m.shares} Shares)</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block font-semibold">Active Loan</span>
+                  <strong class="${m.loanBal > 0 ? 'text-amber-600 font-extrabold text-sm' : 'text-slate-400 text-xs'}">
+                    ${m.loanBal > 0 ? 'UGX ' + m.loanBal.toLocaleString() : 'No Loan'}
+                  </strong>
+                </div>
               </div>
             </div>
 
-            <!-- Balances -->
-            <div class="grid grid-cols-2 gap-2 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs">
-              <div>
-                <span class="text-slate-400 block font-semibold">Total Savings</span>
-                <strong class="text-emerald-800 text-sm font-extrabold">UGX ${m.savings.toLocaleString()}</strong>
-                <span class="text-[10px] text-slate-400 block mt-0.5">(${m.shares} Shares)</span>
-              </div>
-              <div>
-                <span class="text-slate-400 block font-semibold">Active Loan</span>
-                <strong class="${m.loanBal > 0 ? 'text-amber-600 font-extrabold text-sm' : 'text-slate-400 text-xs'}">
-                  ${m.loanBal > 0 ? 'UGX ' + m.loanBal.toLocaleString() : 'No Loan'}
-                </strong>
-              </div>
+            <!-- Actions -->
+            <div class="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-100 text-[11px] font-bold">
+              <button onclick="quickSave('${m.id}')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+                <i class="fa-solid fa-piggy-bank"></i>
+                <span>Save</span>
+              </button>
+              <button onclick="quickBorrow('${m.id}')" class="${maxBorrowable > 0 ? 'bg-amber-50 hover:bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-400 opacity-60 cursor-not-allowed'} py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+                <i class="fa-solid fa-hand-holding"></i>
+                <span>Borrow</span>
+              </button>
+              <button onclick="openRepayModal('${m.id}')" class="${m.loanBal > 0 ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed'} py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
+                <i class="fa-solid fa-receipt"></i>
+                <span>Repay</span>
+              </button>
             </div>
           </div>
-
-          <!-- Actions -->
-          <div class="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-100 text-[11px] font-bold">
-            <button onclick="quickSave('${m.id}')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
-              <i class="fa-solid fa-piggy-bank"></i>
-              <span>Save</span>
-            </button>
-            <button onclick="quickBorrow('${m.id}')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
-              <i class="fa-solid fa-hand-holding"></i>
-              <span>Borrow</span>
-            </button>
-            <button onclick="openRepayModal('${m.id}')" class="${m.loanBal > 0 ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-slate-100 text-slate-400 cursor-not-allowed'} py-2 rounded-lg text-center transition flex items-center justify-center space-x-1">
-              <i class="fa-solid fa-receipt"></i>
-              <span>Repay</span>
-            </button>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function searchMembers() {
@@ -483,6 +539,24 @@
       document.getElementById('saveTotalDisplay').innerText = 'UGX ' + total.toLocaleString();
     }
 
+    function updateBorrowLimitDisplay() {
+      const id = document.getElementById('borrowMemberSelect').value;
+      const member = membersData.find(m => m.id === id);
+      const display = document.getElementById('borrowMaxLimitDisplay');
+      const amountInput = document.getElementById('borrowAmount');
+
+      if (member) {
+        const maxLimit = Math.max(0, member.savings - member.loanBal);
+        display.innerText = `Max Borrowable Limit: UGX ${maxLimit.toLocaleString()} (Equal to member savings)`;
+        amountInput.max = maxLimit;
+        if (parseInt(amountInput.value) > maxLimit) {
+          amountInput.value = maxLimit;
+        }
+      } else {
+        display.innerText = 'Max Borrowable: UGX 0';
+      }
+    }
+
     function handleAddMember(e) {
       e.preventDefault();
       const name = document.getElementById('newMemberName').value.trim();
@@ -490,7 +564,7 @@
       const village = document.getElementById('newMemberVillage').value.trim();
       const initShares = parseInt(document.getElementById('newMemberInitialShares').value);
 
-      const newId = 'M' + (membersData.length + 1);
+      const newId = 'M' + Date.now();
       const newMember = {
         id: newId,
         name: name,
@@ -509,7 +583,7 @@
       document.getElementById('newMemberPhone').value = '';
       document.getElementById('newMemberVillage').value = '';
 
-      alert(`🎉 Member Registered!\n${name} from ${village} has been added to Lulonyo Savings Group.`);
+      alert(`🎉 Family Member Registered!\n${name} from ${village} has been registered to Okello Family Savings Group.`);
     }
 
     function quickSave(id) {
@@ -518,7 +592,17 @@
     }
 
     function quickBorrow(id) {
+      const member = membersData.find(m => m.id === id);
+      if (!member) return;
+
+      const maxLimit = member.savings - member.loanBal;
+      if (maxLimit <= 0) {
+        alert(`❌ Borrowing Denied!\nMember ${member.name} has UGX ${member.savings.toLocaleString()} in total savings and cannot borrow beyond their savings balance.`);
+        return;
+      }
+
       document.getElementById('borrowMemberSelect').value = id;
+      updateBorrowLimitDisplay();
       openModal('borrowModal');
     }
 
@@ -541,7 +625,7 @@
         member.savings += (shares * 2000);
         renderUI();
         closeModal('saveModal');
-        alert(`✅ Savings Recorded!\n${member.name} bought ${shares} shares (UGX ${(shares * 2000).toLocaleString()}).`);
+        alert(`✅ Savings Recorded!\n${member.name} deposited ${shares} shares (UGX ${(shares * 2000).toLocaleString()}).`);
       }
     }
 
@@ -550,12 +634,21 @@
       const id = document.getElementById('borrowMemberSelect').value;
       const amount = parseInt(document.getElementById('borrowAmount').value);
       const member = membersData.find(m => m.id === id);
-      if (member) {
-        member.loanBal += amount;
-        renderUI();
-        closeModal('borrowModal');
-        alert(`🤝 Loan Issued!\nUGX ${amount.toLocaleString()} disbursed to ${member.name}.`);
+
+      if (!member) return;
+
+      const maxBorrowable = member.savings - member.loanBal;
+
+      // STRICT BORROWING LIMIT CHECK
+      if (amount > maxBorrowable) {
+        alert(`❌ Borrowing Limit Exceeded!\n\nMember ${member.name} has UGX ${member.savings.toLocaleString()} in savings.\nMaximum loan allowed: UGX ${maxBorrowable.toLocaleString()}.\n\nBorrowing beyond total member savings is strictly prohibited by group policy.`);
+        return;
       }
+
+      member.loanBal += amount;
+      renderUI();
+      closeModal('borrowModal');
+      alert(`🤝 Loan Approved!\nUGX ${amount.toLocaleString()} disbursed to ${member.name}.`);
     }
 
     function handleRepay(e) {
@@ -595,6 +688,11 @@
       document.getElementById('soTotalProfitDisplay').innerText = 'UGX ' + totalProfitDistributable.toLocaleString();
       document.getElementById('soDiv').innerText = 'UGX ' + divPerShare.toFixed(2);
 
+      if (!membersData || membersData.length === 0) {
+        body.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">No members registered yet.</td></tr>';
+        return;
+      }
+
       body.innerHTML = membersData.map(m => {
         const memberOwnershipPct = totalGroupSavings > 0 ? ((m.savings / totalGroupSavings) * 100).toFixed(1) : '0';
         const profit = Math.round(m.savings * (totalGroupSavings > 0 ? (totalProfitDistributable / totalGroupSavings) : 0));
@@ -620,6 +718,13 @@
 
     function closeModal(id) {
       document.getElementById(id).classList.add('hidden');
+    }
+
+    // Register Service Worker for Offline PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW reg error:', err));
+      });
     }
 
     // Init
